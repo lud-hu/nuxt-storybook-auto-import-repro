@@ -1,0 +1,1 @@
+Reproduction repository for integration of nuxt, storybook and auto imports like NuxtIcons.
