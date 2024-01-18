@@ -5,32 +5,32 @@ import Components from "unplugin-vue-components/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    AutoImport({
-      imports: [
-        "vue",
-        "vue-router",
-        {
-          "nuxt-icons": ["NuxtIcon", ["default", "NuxtIcon"]],
+    plugins: [
+        AutoImport({
+            imports: ["vue", "vue-router"],
+            dirs: ["../composables"],
+            vueTemplate: true,
+        }),
+        Components({
+            dirs: ["../components/"],
+            dts: true,
+            directoryAsNamespace: true,
+            resolvers: [
+                (name) => {
+                    console.log("name", name);
+                    if (name === "FormKit") {
+                        return { name, from: "@formkit/vue" };
+                    }
+                },
+            ],
+        }),
+    ],
+    resolve: {
+        alias: {
+            "~": fileURLToPath(new URL("../", import.meta.url)),
+            "@": fileURLToPath(new URL("../", import.meta.url)),
+            // Add any other aliases you use in your code base
+            // https://nuxt.com/docs/api/configuration/nuxt-config/#alias
         },
-      ],
-      dirs: ["../composables"],
-      vueTemplate: true,
-    }),
-    Components({
-      dirs: [
-        "../components/",
-      ],
-      dts: true,
-      directoryAsNamespace: true,
-    }),
-  ],
-  resolve: {
-    alias: {
-      "~": fileURLToPath(new URL("../", import.meta.url)),
-      // Add any other aliases you use in your code base
-      // https://nuxt.com/docs/api/configuration/nuxt-config/#alias
     },
-  },
-  // optimizeDeps: { exclude: ["fsevents"] },
 });

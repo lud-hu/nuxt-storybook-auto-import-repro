@@ -1,6 +1,6 @@
 <template>
     Hello
-    <NuxtIcon name="account" />
+    <FormKit />
 </template>
 
 <script setup lang="ts">
